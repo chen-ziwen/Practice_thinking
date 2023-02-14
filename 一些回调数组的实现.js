@@ -5,8 +5,6 @@ Array.prototype.myForEach = function (fun) {
         fun.call(this, i, this[i], this);
     }
 }
-
-
 arr.myForEach((i, val, item) => {
     console.log(i, val, item);
 });
@@ -21,7 +19,6 @@ Array.prototype.myMap = function (fun) {
     }
     return arr;
 }
-
 const nperson = person.myMap((i, val, item) => {
     return item[i].name;
 })
@@ -39,9 +36,43 @@ Array.prototype.myFilter = function (fun) {
     }
     return arr;
 }
-
 const n2person = person2.myFilter((i, val, item) => {
     return val.age >= 26
 })
-
 console.log(n2person);
+
+// some的实现
+const someArr = [1, 2, 3, 4, 5];
+Array.prototype.mySome = function (fun) {
+    let judge = false;
+    for (let i = 0; i < this.length; i++) {
+        const someJudge = fun.call(this, i, this[i], this);
+        if (someJudge) {
+            judge = true;
+            break;
+        }
+    }
+    return judge;
+}
+const someJudge = someArr.mySome((i, val, item) => {
+    return val > 5;
+})
+console.log(someJudge);
+
+// every的实现
+const everyArr = [1, 2, 5, 10, 100];
+Array.prototype.myEvery = function (fun) {
+    let judge = true;
+    for (let i = 0; i < this.length; i++) {
+        const someJudge = fun.call(this, i, this[i], this);
+        if (!someJudge) {
+            judge = false;
+            break;
+        }
+    }
+    return judge;
+}
+const everyJudge = everyArr.myEvery((i, val, item) => {
+    return val >= 1
+})
+console.log(everyJudge);
