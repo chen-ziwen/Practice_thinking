@@ -1,3 +1,5 @@
+// 以下方法都是凭思路实现的简易模式，仅作为参考
+
 // forEach的实现
 const arr = ['你好', 2, '测试', 4, '成功'];
 Array.prototype.myForEach = function (fun) {
