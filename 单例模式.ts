@@ -4,22 +4,16 @@
 
 class Singeleto {
     private static intance: any = null;
-    private name: string;
-    private age: number;
-    constructor(name: string, age: number) {
-        this.name = name;
-        this.age = age;
-    }
-    static createSinge(name: string, age: number) {
+    static createSinge() {
         if (!Singeleto.intance) {
-            Singeleto.intance = new Singeleto(name, age);
+            Singeleto.intance = new Singeleto();
         }
         return Singeleto.intance;
     }
 }
 
-const obj = Singeleto.createSinge('陈子文', 23);
-const obj2 = Singeleto.createSinge('臣子', 25); // 重新写没用 只能实例化一次
+const obj = Singeleto.createSinge();
+const obj2 = Singeleto.createSinge(); // 重新写没用 只能实例化一次
 console.log(obj, obj2);
 console.log(obj === obj2);
 
