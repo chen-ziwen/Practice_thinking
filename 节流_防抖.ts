@@ -69,3 +69,41 @@ export class Throttle {
         }
     }
 }
+
+export class newDebounce {
+    private timeout: number | null;
+    constructor() {
+        this.timeout = null;
+    }
+    use(fun: Function, immediate = false): Function {
+        // ...args 相当于解构 arguments类数组，表示的就是传入的多个参数
+        // 因为有的时候delay需要动态改变 所以需要写在这
+        return (delay: number, ...args: any) => {
+            if (this.timeout) {
+                clearTimeout(this.timeout); // 清除定时器后，timeout仍然为数字
+            }
+            // immdiate为true时，立即执行，并把定时器设置为null
+            if (immediate) {
+                if (!this.timeout) {
+                    // 一轮结束后，将timout设置为null，定时器便能继续立即执行
+                    fun.apply(this, args)  // 这边的args是类数组，而apply刚好接收数组，同时它也会解构数组将它转为多个参数
+                }
+                this.timeout = setTimeout(() => {
+                    this.timeout = null;
+                }, delay);
+                return;
+            }
+            // immdiate为false时，正常执行
+            this.timeout = window.setTimeout(() => {
+                fun.apply(this, args);
+                this.timeout = null;
+            }, delay);
+        }
+    };
+    cancel() {
+        if (this.timeout) {
+            clearTimeout(this.timeout)
+        }
+        this.timeout = null; // 释放内存
+    }
+}
