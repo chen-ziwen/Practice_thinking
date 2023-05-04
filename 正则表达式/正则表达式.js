@@ -2,7 +2,7 @@
 const formatColor = (color) => {
     let r, g, b, a;
     if (/^(rgb|rgba)/.test(color)) {
-        // 将rgb或者rgba分解成数字字符串
+        // 将rgb或者rgba分解成数字数组
         const result = color.replace(/^(rgb|rgba)\(/, '').replace(/\)$/, '').replace(/\s+/g, '').split(',');
         r = result[0].toString(16);
         g = result[1].toString(16);
