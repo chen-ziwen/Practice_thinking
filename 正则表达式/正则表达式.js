@@ -10,7 +10,7 @@ const formatColor = (color) => {
         a = result[3] || 1;
         return `#${r}${g}${b}`;
     } else if (/^#/.test(color)) {
-        const result = /^#([1-9a-f]{2})([1-9a-f]{2})([1-9a-f]{2})/.exec(color);
+        const result = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})/.exec(color);
         if (result) {
             r = parseInt(result[1], 16);
             g = parseInt(result[2], 16);
