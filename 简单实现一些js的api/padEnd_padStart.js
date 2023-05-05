@@ -13,8 +13,10 @@ String.prototype.myPadStart = function (len, fill) {
     return s;
 }
 
-const n = 'abc'.myPadStart(10, 'a#@12');
-console.log('padEnd', n);
+const nd = 'abc'.myPadStart(10, '*'); // 填充字符
+const nm = 'abc'.myPadStart(10, 'a#@12'); // 填充字符串
+console.log('padEnd 填充字符', nd);
+console.log('padEnd 填充字符串', nm);
 
 // padEnd
 String.prototype.myPadEnd = function (len, fill) {
@@ -28,8 +30,10 @@ String.prototype.myPadEnd = function (len, fill) {
     return s;
 }
 
-const s = 'abcd'.myPadEnd(10, '1234');
-console.log('padStart', s);
+const sd = 'abcd'.myPadEnd(15, '*'); // 填充字符
+const sm = 'abcd'.myPadEnd(15, '#abc'); // 填充字符
+console.log('padStart 填充字符', sd);
+console.log('padStart 填充字符串', sm);
 
 
 
