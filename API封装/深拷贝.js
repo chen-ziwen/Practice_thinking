@@ -15,3 +15,9 @@ function deepClone(data) {
 
     return clone;
 }
+
+
+// 浅拷贝的方式太多了
+// arr.slice()
+// [...arr] 
+// ...
