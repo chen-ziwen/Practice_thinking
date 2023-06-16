@@ -1,4 +1,4 @@
-// 给对象增加一个迭代器
+// 给对象增加一个迭代器 让对象也可以被迭代
 
 Object.prototype[Symbol.iterator] = function () {
     let index = 0;
