@@ -6,7 +6,9 @@ function deepClone(obj) {
     }
     const data = Array.isArray(obj) ? [] : {};
     for (let key in obj) {
-        data[key] = deepClone(obj[key]);
+        if (obj.hasOwnProperty(key)) {
+            data[key] = deepClone(obj[key]);
+        }
     }
     return data;
 }
