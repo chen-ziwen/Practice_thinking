@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box"></div>
+</body>
+
+<script>
+    window.onload = function () {
+        const outrBox = document.getElementById("box");
+        const obsever = new IntersectionObserver((entries) => {
+            entries.forEach((item) => {
+                if (item.intersectionRatio === 1) {
+                    item.target.style.background = "blue";
+                    // 当观察的元素 完全出现在可视范围内 改变颜色 并移除观察
+                    obsever.unobserve(item.target);
+                }
+            })
+        }, {
+            root: null, // 为null时 默认视口为根元素
+            threshold: 1, // 一个触发回调的阈值数组，表示目标元素的可见比例。 1代表完全可见 如果设置为[0, 0.25, 0.5, 0.75, 1]  则表示相交这些区域时会触发回调
+        });
+
+        for (let i = 0; i < 30; i++) {
+            const box = document.createElement("div");
+            const text = document.createTextNode(`第${i}个`);
+            box.setAttribute("class", "apple")
+            box.style.cssText = "width:100px; height:100px; background:red";
+            box.appendChild(text);
+            outrBox.appendChild(box);
+            // 观察每一个对象
+            obsever.observe(box);
+        }
+    }
+</script>
+
+<style>
+    #box {
+        width: 100px;
+        height: 100vh;
+        margin: 0 auto;
+    }
+
+    #box .apple {
+        margin-bottom: 20px;
+        transition: background 1s;
+    }
+</style>
+
+</html>

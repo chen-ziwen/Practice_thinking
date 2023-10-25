@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box"></div>
+</body>
+
+<script>
+    // 使用IntersectionObserver实现图片懒加载
+    window.addEventListener("load", () => {
+        const box = document.getElementById("box");
+        const option = {
+            root: null,
+            thresholds: 1,
+        }
+        const dely = (entries) => {
+            entries.forEach((item) => {
+                if (item.isIntersecting) { // 只要出现在可视范围就为ture
+                    setTimeout(() => { // 模拟网络请求的速度
+                        item.target.src = item.target.dataset.src;
+                    }, 1000)
+                    observer.unobserve(item.target);
+                }
+            })
+        }
+        const observer = new IntersectionObserver(dely, option);
+
+        for (let i = 0; i < 300; i++) {
+            const img = document.createElement("img");
+            img.setAttribute("data-src", "./avatar.jpg");
+            observer.observe(img);
+            box.append(img);
+        }
+
+    }, false)
+</script>
+
+<style>
+    [data-src] {
+        width: 100px;
+        height: 100px;
+        margin: 20px;
+    }
+</style>
+
+</html>
