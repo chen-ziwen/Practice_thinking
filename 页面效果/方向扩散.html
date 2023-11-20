@@ -15,28 +15,19 @@
 <script>
     window.addEventListener("load",()=>{
         const round = document.getElementById("round");
-        const roundxy = document.querySelector(".round-xy");
-        const intance = { x: 0, y: 0 };
         const cl = round.classList;
+        const roundxy = document.querySelector(".round-xy");
         const clxy = roundxy.classList;
 
         function updatePos (e,type) {
-            intance.x = e.offsetX;
-            intance.y = e.offsetY;
-            roundxy.style.left = intance.x + 'px';
-            roundxy.style.top = intance.y + "px";
+            roundxy.style.left = e.offsetX + 'px';
+            roundxy.style.top = e.offsetY + "px";
             cl[type]("card--active")
             clxy[type]("card__background");
         }
 
-        round.addEventListener("mouseenter",(e)=>{
-            updatePos(e,"add");
-            
-        })
-
-        round.addEventListener("mouseleave",(e)=>{
-            updatePos(e,"remove");
-        })
+        round.addEventListener("mouseenter",(e)=> updatePos(e,"add"));
+        round.addEventListener("mouseleave",(e)=>updatePos(e,"remove"));
     })
 </script>
 
