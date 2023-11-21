@@ -22,6 +22,7 @@ type al = ArrayLength<testArryL>; // 可以获取元组长度
 
 // 从第一个联合类型中排除第二个类型中所包含的
 type MExclude<T, K> = T extends K ? never : T; // 知道了用到了extends的联合类型分发
+type test = MExclude<string|number|boolean,string|number> // entends遇到联合类型的时候 会进行类似遍历的操作也叫分发
 
 // 如果传入参数为true 返回第一个 否则返回第二个
 type MIF<A extends boolean, T, K> = A extends true ? T : K;
