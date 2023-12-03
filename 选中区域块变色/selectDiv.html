@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+      <div class="area"></div>
+      <div class="list"></div>
+    </div>
+</body>
+
+<script>
+   $(()=>{
+
+     const pos = { 
+        startX:0,
+        startY:0,
+        width:0,
+        height:0,
+        left:0,
+        top:0
+     };
+
+     let press = false;
+
+
+     const select = [
+        {name:"chiko",age:18,isSelect:false},
+        {name:"夏安歌",age:20,isSelect:false},
+        {name:"允志",age:17,isSelect:false},
+        {name:"文杰",age:21,isSelect:false},
+        {name:"一休",age:17,isSelect:false},
+      ];
+
+      let sDiv = '';
+      for(let s of select) {
+        sDiv += `<span>name:${s.name} \n age: ${s.age} </span>`;
+      }
+
+      $(".list").append(sDiv);
+     
+     function updateReact() {
+        $(".area").css({
+            left:pos.left + "px",
+            top:pos.top + "px",
+            width:pos.width + "px",
+            height:pos.height +"px",
+            opacity: 1
+        })
+     }
+     
+     const rlist = $(".list span").get().map(item =>{
+        const { width,height,left,top} = item.getBoundingClientRect();
+        return {dom:item,width,height,left,top};
+     })
+
+     function removeClass () {
+        rlist.forEach(item=>{
+        item.dom.classList.remove("select");
+       })
+     }
+
+     
+     // 判断是否在列表是否范围中 在范围中就变色
+     function rangeList (e) {
+        const { clientX,clientY} = e;
+    
+        rlist.forEach((item,i)=>{
+            const {dom,left,top,width,height}  = item;
+            if(left > pos.left && left + width < pos.left + pos.width &&
+            top > pos.top && top + height < pos.top + pos.height) {
+                select[i].isSelect = true;
+                dom.classList.add("select");
+            }else {
+                select[i].isSelect = false;
+                dom.classList.remove("select");
+            }
+        })
+     }
+
+     $(".container").mousedown((e)=>{
+        const { clientX, clientY } = e;
+         pos.startX = clientX;
+         pos.startY = clientY;
+         pos.left = clientX;
+         pos.top = clientY;
+         press = true;
+     })
+
+     $(".container").mousemove((e)=>{
+        if(press) {
+            const { clientX, clientY } = e;
+            pos.width = Math.abs(clientX - pos.startX);
+            pos.height = Math.abs(clientY - pos.startY);
+            if(clientX < pos.startX)  pos.left = clientX;
+            if(clientY < pos.startY)  pos.top = clientY;
+            pos.left = Math.min(pos.startX,clientX);
+            pos.top =  Math.min(pos.startY,clientY)
+            updateReact();
+            rangeList(e);
+        }
+     })
+
+     $(".container").mouseup((e)=>{
+        press = false;
+        $(".area").css("opacity",0);
+        removeClass();
+     })
+
+     $(".container").mouseleave((e)=>{
+        press = false;
+        $(".area").css("opacity",0);
+        removeClass();
+     })
+   })
+</script>
+
+<style>
+  .container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    /* background-color: greenyellow; */
+  }
+
+  .container .area {
+    position: absolute;
+    border: 1px solid lightblue;
+    opacity: 0;
+    z-index: 999;
+  }
+
+  .container .list {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+  }
+
+  .container .list span {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background-color: gold;
+    margin: 10px;
+    user-select: none;
+  }
+
+  .container .list span.select {
+    background-color: red !important;
+  }
+</style>
+</html>
