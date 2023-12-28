@@ -8,6 +8,8 @@
     console.log(regex.test("a1bc"));
 }
 
+// 匹配字符串
+
 /* 1. 匹配16进制颜色值
 #ffbbad
 #Fc01DF
@@ -89,4 +91,28 @@ F:\
     let regex = /id="[^"]*"/; // .匹配任何单个字符（除了换行符）这边要使用惰性匹配
     var string = '<div id="container" class="main"></div>';
     console.log(string.match(regex)[0]); // id="container"
-} 
+}
+
+// 匹配位置
+
+/* 1. 不匹配任何东西的正则 /.^/
+因为此正则要求只有一个字符，但该字符后面是开头。 
+ */
+
+/* 2. 数字的千分位分隔
+比如把"12345678"，变成"12,345,678"。
+可见是需要把相应的位置替换成"," （位置可以理解为空字符串）。
+ */
+{
+    let data = "1000000000";
+    let data2 = "123456789";
+    
+    // 不匹配^前面的位置 匹配以长度为3的0-9组合字符串 匹配1到多次
+    let regex = /(?!^)(?=(\d{3})+$)/g;
+
+    var result = data.replace(regex, ",");
+    var result2 = data2.replace(regex, ",");
+    console.log(result); // 1,000,000,000
+    console.log(result2); // 123,456,789
+}
+

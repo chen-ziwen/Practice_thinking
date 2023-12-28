@@ -105,8 +105,37 @@ console.log( string.match(regex) );
 然而大部分人学习正则时，对于匹配位置的重视程度没有那么高。对于位置的理解可以理解为空字符串。
 
 
+### (?=p)和(?!p)
+(?=p)，其中p是一个子模式，即p前面的位置。
+比如(?=l)，表示'l'字符前面的位置，例如：
+```js
+var result = "hello".replace(/(?=l)/g, '#');
+console.log(result);
+// => "he#l#lo"
+```
+而(?!p)就是(?=p)的反面意思，比如：
+```js
+var result = "hello".replace(/(?!l)/g, '#');
+console.log(result);
+// => "#h#ell#o#"
+```
+二者的学名分别是positive lookahead和negative lookahead。
+中文翻译分别是正向先行断言和负向先行断言。
+ES6中，还支持positive lookbehind和negative lookbehind。
+具体是(?<=p)和(?<!p)。
+也有书上把这四个东西，翻译成环视，即看看右边或看看左边。
+但一般书上，没有很好强调这四者是个位置。
+比如(?=p)，一般都理解成：要求接下来的字符与p匹配，但不能包括p的那些字符。
+而在本人看来(?=p)就与^一样好理解，就是p前面的那个位置。
 
-
-
-
+### 位置的特性
+对于位置的理解，我们可以理解成空字符""。
+比如"hello"字符串等价于如下的形式：
+```js
+"hello" == "" + "h" + "" + "e" + "" + "l" + "" + "l" + "o" + "";
+```
+也等价于
+```js
+"hello" == "" + "" + "hello"
+```
 
