@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        歌曲名:<input class="inputT" type="text">
+        <button onclick="search()">搜索(跨域了)</button>
+        <button onclick="test()">测试</button>
+        <button onclick="rank()">音乐排行</button>
+    </div>
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const api = "http://api.music.chiko.website/";
+        const inputT = document.querySelector(".inputT");
+        let value = ""
+        inputT.oninput = (e) => {
+            value = e.target.value
+        }
+
+        async function getSearch(key) {
+            const url = api + `search?keywords=${key}`;
+            const response = await fetch(url, {
+                method: "GET",
+                mode: "cors",
+                cache: "no-cache",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                }
+            })
+            return response.json();
+        }
+
+        window.search = () => {
+            getSearch(value).then(data => {
+                console.log("返回结果：", data);
+            });
+        }
+
+        async function getTest() {
+            const url = "https://i1.hdslb.com/bfs/svg-next/BDC/arrow_refresh_line/v2.json";
+            const response = await fetch(url, {
+                method: "GET",
+                mode: "cors",
+                cache: "no-cache",
+                credentials: "same-origin",
+                headers: {
+                    // "Content-Type": "application/json; charset=utf-8",
+                    "Accept": "*/*"
+                }
+            })
+            return response.json();
+        }
+
+        window.test = () => {
+            getTest().then(data => {
+                console.log("返回结果：", data);
+            });
+        }
+
+        async function getRank() {
+            const url = "https://netease-cloud-music-api-ll9b.vercel.app/toplist/detail";
+            const response = await fetch(url, {
+                method: "GET",
+                mode: "cors",
+                cache: "no-cache",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                }
+            })
+            return response.json();
+        }
+
+        window.rank = () => {
+            getRank(value).then(data => {
+                console.log("音乐排行榜：", data);
+            });
+        }
+    });
+
+
+</script>
+
+</html>
