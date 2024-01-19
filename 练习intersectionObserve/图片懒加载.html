@@ -23,7 +23,7 @@
         const dely = (entries) => {
             entries.forEach((item) => {
                 if (item.isIntersecting) { // 只要出现在可视范围就为ture
-                    setTimeout(() => { // 模拟网络请求的速度
+                    setTimeout(() => {  // 模拟网络请求的速度
                         item.target.src = item.target.dataset.src;
                     }, 1000)
                     observer.unobserve(item.target);

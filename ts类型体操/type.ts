@@ -22,7 +22,7 @@ type al = ArrayLength<testArryL>; // 可以获取元组长度
 
 // 从第一个联合类型中排除第二个类型中所包含的
 type MExclude<T, K> = T extends K ? never : T; // 知道了用到了extends的联合类型分发
-type test = MExclude<string|number|boolean,string|number> // entends遇到联合类型的时候 会进行类似遍历的操作也叫分发
+type test = MExclude<string | number | boolean, string | number> // entends遇到联合类型的时候 会进行类似遍历的操作也叫分发
 
 // 如果传入参数为true 返回第一个 否则返回第二个
 type MIF<A extends boolean, T, K> = A extends true ? T : K;
@@ -51,4 +51,37 @@ type funType = ReturnType<sum>;
 // 元组转集合
 type TupleToUnion<T extends any[]> = T[number];
 
-// 
+// keyof 不能去除可选性
+
+type person = {
+    name?: string;
+    age: number;
+}
+
+type MyRequired<T> = {
+    [P in keyof T]: T[P];
+}
+
+// 类型是可以直接通过key value的形式直接拿到属性的类型的 // 这样可以知道可选其实还是可选的
+type a = keyof person extends (string | undefined) ? true : false;
+
+type TestPerson = MyRequired<person>;
+
+// 实现Readonly2
+// 实现一个通用MyReadonly2<T, K>，它带有两种类型的参数T和K。
+// K指定应设置为Readonly的T的属性集。如果未提供K，则应使所有属性都变为只读，就像普通的Readonly<T>一样,提供K的话，就值对K中的值变为只读。
+
+// 这里的 = 是提供默认值的意思
+type MyReadonly2<T, K extends keyof T = keyof T> = {
+    readonly [P in K]: T[P];
+} & T; // 牛逼 很巧妙
+
+// 深度ReadOnly
+// 实现一个通用的DeepReadonly<T>，它将对象的每个参数及其子对象递归地设为只读。
+type IsObjectLiseral<T> = keyof T extends never ? false : true;
+
+// 递归实现很棒
+type DeepReadOnly<T> = {
+    readonly [P in keyof T]: IsObjectLiseral<T[P]> extends true ? DeepReadOnly<T[P]> : T[P];
+}
+

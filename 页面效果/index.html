@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div id="round">
         这个效果你觉得怎么样
@@ -13,21 +15,21 @@
 </body>
 
 <script>
-    window.addEventListener("load",()=>{
+    window.addEventListener("load", () => {
         const round = document.getElementById("round");
         const cl = round.classList;
         const roundxy = document.querySelector(".round-xy");
         const clxy = roundxy.classList;
 
-        function updatePos (e,type) {
+        function updatePos(e, type) {
             roundxy.style.left = e.offsetX + 'px';
             roundxy.style.top = e.offsetY + "px";
             cl[type]("card--active")
             clxy[type]("card__background");
         }
 
-        round.addEventListener("mouseenter",(e)=> updatePos(e,"add"));
-        round.addEventListener("mouseleave",(e)=> updatePos(e,"remove"));
+        round.addEventListener("mouseenter", (e) => updatePos(e, "add"));
+        round.addEventListener("mouseleave", (e) => updatePos(e, "remove"));
     })
 </script>
 
@@ -36,7 +38,8 @@
         width: 100vw;
         height: 100vh;
     }
-     #round {
+
+    #round {
         position: relative;
         width: 360px;
         height: 440px;
@@ -47,36 +50,38 @@
         display: flex;
         align-items: center;
         justify-content: center;
-     }
+    }
 
-     #round .round-xy {
+    #round .round-xy {
         position: absolute;
-        width:100%;
+        width: 100%;
         border-radius: 50%;
         background-size: 120%;
-        transform: translate3d(-50%,-50%,0) scale(0);
-        background: radial-gradient(#6954f3,#8d54f3,#6f77ff);
+        transform: translate3d(-50%, -50%, 0) scale(0);
+        background: radial-gradient(#6954f3, #8d54f3, #6f77ff);
         will-change: transform;
         filter: blur(12px);
         transition: none;
         z-index: -1;
-     }
-     #round .round-xy::after {
+    }
+
+    #round .round-xy::after {
         content: '';
         display: block;
         padding-top: 100%;
-     }
+    }
 
-     #round.card--active {
+    #round.card--active {
         cursor: pointer;
-        color:#ffffff;
+        color: #ffffff;
         font-size: 24px;
         transition: all .85s;
-     }
+    }
 
-     #round.card--active .card__background {
-        transform: translate3d(-50%,-50%,0) scale(3);
-        transition: transform .7s cubic-bezier(.15,.46,.45,.94);
-     }
+    #round.card--active .card__background {
+        transform: translate3d(-50%, -50%, 0) scale(3);
+        transition: transform .7s cubic-bezier(.15, .46, .45, .94);
+    }
 </style>
+
 </html>
