@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+    const p1 = Promise.resolve();
+   const p2 = p1.then(()=> { return new Promise(()=>{})}) // 待定
+   console.log(p2);
+
+   const obj = {
+    name:'czw',
+    msg: "cool",
+    h() {
+        console.log('h this',this.name);
+        return this;
+    }
+   }
+
+   function f () {
+    console.log(this);
+   }
+   obj.h().h().h();
+
+   function Preson (name) {
+     this.name = name;
+     console.log('new person',this);
+   }
+
+   Preson.prototype.hello = function () {
+     console.log('你好呀');
+   }
+   Preson.prototype.name = "chiko";
+   
+   const a = new Preson('chiko');
+   
+   function Chiko() {
+     this.age = (age)=>{
+        return age;
+     }
+   }
+   
+   Chiko.prototype = Preson.prototype;
+
+   const chiko = new Chiko()
+   console.log(a);
+   console.dir(Preson)
+   console.log("chiko",chiko)
+
+   const obj2 = {
+    // name: "chiko"
+   }
+   
+   // js 对象中有一些不能直接访问的特性，分为数据属性和访问器属性。
+   const dname = Object.defineProperty(obj2,"name",{
+      writable:false 
+   })
+    
+   delete obj2.name
+   console.log('obj2',obj2);
+   
+   // 可计算属性
+   let ma = "chiko", mm = "22", jk = "da";
+   function createSingl (proprety) {
+    return `${proprety}_signl`
+   }
+   let animal = {
+     [createSingl(ma)]: "chiko",
+     [createSingl(mm)]: "22",
+     [jk]:"ddddd"
+   }
+
+   // 对象解构
+   // 如果解构的值不存在就是undefined，然后job也是不存在的，但是可以给它定义默认值
+   let { name, age ,job = "我找到工作了"} = person;
+</script>
+</html>
