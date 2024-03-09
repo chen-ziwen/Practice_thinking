@@ -7,3 +7,11 @@ console.log('map 转为 object', mChangeo);
 // 将object转为map
 const oChangem = new Map(Object.entries(mChangeo));
 console.log('object 转为 map', oChangem)
+
+
+
+class Person {
+
+}
+
+console.log(new Person());
