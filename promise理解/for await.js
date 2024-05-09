@@ -1,6 +1,5 @@
 const promises = [];
 
-// 这样的写法不能一个一个等待，因为new Promise的时候，这些定时器就全部执行了。
 const p1 = () => new Promise(resolve => {
     setTimeout(() => {
         resolve(1);
