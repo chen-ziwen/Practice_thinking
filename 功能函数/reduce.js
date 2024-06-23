@@ -1,14 +1,25 @@
-const arr = [
-    {name:"chiko",age:"25"},
-    {name:"angle",age:"26"},
-    {name:"yunzhi",age:"118"},
-];
 
-// 我需要拿到所有的名字 放到一个新数组中
+const a = [{ name: "chiko", age: 22 }, { name: "piko", age: 23 }, { name: "biko", age: 24 }];
+// map 
+// 筛选出name合集
 
-const nameArr = arr.reduce((pre,next,i)=>{
-   pre[i] = next.name;
-   return pre; 
-})
+const mapa = a.map((item) => item.name);
 
-console.log(nameArr);
+const reducea = a.reduce((pre, cur) => {
+    pre.push(cur.name);
+    return pre;
+}, []);
+
+console.log(mapa, reducea);
+// filter
+// 过滤年龄大于23的
+const filtera = a.filter((item) => item.age <= 23);
+
+const reducea1 = a.reduce((pre, cur) => {
+    if (cur.age <= 23) {
+        pre.push(cur)
+    }
+    return pre;
+}, []);
+
+console.log(filtera, reducea1);
