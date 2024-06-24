@@ -1,4 +1,4 @@
-function judgeType(dataType: any) {
+function judgeType(dataType) {
     const type = typeof dataType;
     if (type !== 'object') { // 先进行typeof判断，如果是基础数据类型，直接返回
         return type
