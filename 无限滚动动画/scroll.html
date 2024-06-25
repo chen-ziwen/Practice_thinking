@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="box">
+        <div class="son">
+            <span class="son1">
+                在这个例子中，.element将应用一个名为fadeInOut的关键帧动画，该动画在无限循环中执行。动画从完全透明（opacity: 0）开始，在50%的时间点变为完全不透明（opacity:
+                1），然后在剩余的时间内逐渐变回透明，形成一个无缝循环的动画效果。
+            </span>
+            <span class="son2">
+                在这个例子中，.element将应用一个名为fadeInOut的关键帧动画，该动画在无限循环中执行。动画从完全透明（opacity: 0）开始，在50%的时间点变为完全不透明（opacity:
+                1），然后在剩余的时间内逐渐变回透明，形成一个无缝循环的动画效果。
+            </span>
+        </div>
+
+    </div>
+    <button onclick="addText()">添加内容</button>
+</body>
+
+<style>
+    .box {
+        width: 200px;
+        height: 200px;
+        border: 5px orange solid;
+        margin: auto;
+        overflow: hidden;
+    }
+
+    .son {
+        animation: scrollText 5s linear infinite;
+    }
+
+    span {
+        display: inline-block;
+    }
+
+    .son span:nth-child(2) {
+        margin-top: 50px;
+    }
+
+    button {
+        background-color: red;
+    }
+
+
+
+    @keyframes scrollText {
+        from {
+            transform: translateY(0);
+        }
+
+        to {
+            transform: translateY(var(--son-height));
+        }
+    }
+</style>
+
+<script>
+
+    const box = document.querySelector('.box');
+    const son = document.querySelector('.son');
+    // 需要监听盒子内容的大小变化 也就是监听son盒子大小变化
+    const resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+            if (entry.contentRect) {
+                const { width, height } = entry.contentRect;
+                if (son && box) {
+                    const h = (height - 50) / 2 + 50;
+                    son.style.setProperty("--son-height", `${-h}px`);
+                }
+            }
+        }
+    });
+    resizeObserver.observe(son);
+</script>
+
+</html>
