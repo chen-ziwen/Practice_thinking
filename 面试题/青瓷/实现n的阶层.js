@@ -14,6 +14,6 @@ function wn(num, a = 1) {
     else return wn(num - 1, a * num);
 }
 
-console.log(n(5)); // 相当于5*4*3*2*1
+console.log(n(255)); // 相当于5*4*3*2*1
 
 
