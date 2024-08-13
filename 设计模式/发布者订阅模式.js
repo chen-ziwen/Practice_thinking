@@ -1,4 +1,4 @@
-
+// 发布订阅模式真的非常非常好用 尤其的是全局的
 class eventBus {
     constructor() {
         this.event = new Map();
@@ -10,6 +10,12 @@ class eventBus {
             this.event.set(eventName, []);
         }
         this.event.get(eventName).push(callBack);
+
+        // 返回值为函数 调用该函数时，可以直接移除掉该注册事件
+        // 类似vue中的watch
+        return () => {
+            this.off(eventName, callBack);
+        }
     }
     // 触发事件
     emit(eventName, ...args) {
@@ -27,9 +33,9 @@ class eventBus {
         }
         this.event.delete(eventName);
     }
-    
+
     // 移除对应事件下的某一个回调函数
-    off(eventName,callBack) {
+    off(eventName, callBack) {
         if (!this.event.has(eventName)) {
             return;
         }
@@ -42,7 +48,7 @@ class eventBus {
     }
 
     // 对应事件只会触发一次
-    once(eventName,...args) {
+    once(eventName, ...args) {
         if (!this.event.has(eventName)) {
             return;
         }
