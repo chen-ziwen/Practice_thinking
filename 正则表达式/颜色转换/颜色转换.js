@@ -3,11 +3,12 @@ const formatColor = (color) => {
     let r, g, b, a;
     if (/^(rgb|rgba)/.test(color)) {
         // 将rgb或者rgba分解成数字数组
-        const result = color.replace(/^(rgb|rgba)\(/, '').replace(/\)$/, '').replace(/\s+/g, '').split(',');
-        r = result[0].toString(16);
-        g = result[1].toString(16);
-        b = result[2].toString(16);
+        const result = color.replace(/^(rgb|rgba)\(/, '').replace(/\)$/, '').replace(/\s/g, '').split(',');
+        r = Number(result[0]).toString(16);
+        g = Number(result[1]).toString(16);
+        b = Number(result[2]).toString(16);
         a = result[3] || 1;
+
         return `#${r}${g}${b}`;
     } else if (/^#/.test(color)) {
         const result = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})/.exec(color);
@@ -20,5 +21,5 @@ const formatColor = (color) => {
     }
 };
 
-console.log(formatColor('rgb(35,58,44)')); // #355844
-console.log(formatColor('#ff2565')); // rgb(255,37,101)
+console.log(formatColor('#355844')); // rgb(53,88,68)
+console.log(formatColor("rgb(53,88,68)")); // #355844
