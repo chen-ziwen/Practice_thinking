@@ -21,5 +21,5 @@ const formatColor = (color) => {
     }
 };
 
-console.log(formatColor('#355844')); // rgb(53,88,68)
+console.log(formatColor('#fff')); // rgb(53,88,68)
 console.log(formatColor("rgb(53,88,68)")); // #355844
